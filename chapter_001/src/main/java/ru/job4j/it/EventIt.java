@@ -28,32 +28,16 @@ public class EventIt implements Iterator<Integer> {
      * @return
      */
     public boolean sendEvent(int[] event, int i) {
-        return event[i] % 2 == 0 && event[i] != 0;
+        return (event[i] % 2 == 0 && event[i] != 0);
     }
 
-    /**
-     * serchEvent поиск четного элементы за указателем.
-     *
-     * @param event
-     * @param i
-     * @return
-     */
-    public boolean serchEvent(int[] event, int i) {
-
-        boolean result = false;
-        for (int j = i; j < event.length; j++) {
-            if (sendEvent(event, j)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
-        //return Arrays.stream(event).skip(i).anyMatch(e -> e % 2 == 0);
-    }
 
     @Override
     public boolean hasNext() {
-        return serchEvent(numbers, point);
+        while (!sendEvent(numbers, point) && point < numbers.length - 1) {
+            point++;
+        }
+        return sendEvent(numbers, point) && point < numbers.length;
     }
 
     @Override
@@ -61,9 +45,6 @@ public class EventIt implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         } else {
-            while (!sendEvent(numbers, point)) {
-                point++;
-            }
             return numbers[point++];
         }
     }
