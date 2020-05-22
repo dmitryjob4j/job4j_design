@@ -28,7 +28,7 @@ public class EventIt implements Iterator<Integer> {
      * @return
      */
     public boolean sendEvent(int[] event, int i) {
-        return (event[i] % 2 == 0 && event[i] != 0);
+        return (event[i] % 2 == 0);
     }
 
 
