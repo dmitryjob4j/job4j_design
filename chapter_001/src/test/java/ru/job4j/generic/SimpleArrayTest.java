@@ -3,17 +3,17 @@ package ru.job4j.generic;
 import org.junit.Test;
 import org.junit.Before;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
- *  2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 2. Generic.
- *  5.2.1. Реализовать SimpleArray<T> [#288973]
- *  Тесты.
+ * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 2. Generic.
+ * 5.2.1. Реализовать SimpleArray<T> [#288973]
+ * Тесты.
+ * @version 2
  */
 public class SimpleArrayTest {
     private SimpleArray<Integer> simpleArray;
@@ -51,8 +51,13 @@ public class SimpleArrayTest {
 
     @Test
     public void setSemplePosition4set5() {
-        simpleArray.set(4, 5);
-        assertThat(simpleArray.get(4), is(5));
+        simpleArray.add(1);
+        simpleArray.add(2);
+        simpleArray.add(3);
+        simpleArray.add(4);
+        simpleArray.add(5);
+        simpleArray.set(4, 7);
+        assertThat(simpleArray.get(4), is(7));
     }
 
     @Test
@@ -67,24 +72,23 @@ public class SimpleArrayTest {
         assertThat(simpleArray.get(3), is(5));
     }
 
-    //тест на вывод catch
-    @Test
-    public void testCatchIndexOutOfBoundsException() {
-        ByteArrayOutputStream mem = new ByteArrayOutputStream();
-        PrintStream out = System.out;
-        System.setOut(new PrintStream(mem));
-        simpleArray.get(5);
-        assertThat(mem.toString(), is(String.format("Значение не найдено%n")));
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void exceptionIndexOutOf() {
+        simpleArray.set(1, 5);
+    }
 
-        System.setOut(out);
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void exceptionArrayIndex() {
+        simpleArray.get(5);
     }
 
     //итератор
     @Test(expected = NoSuchElementException.class)
     public void iterExeption() {
         SimpleArray<Integer> array = new SimpleArray<>(1);
-        array.next();
-        array.next();
+        Iterator<Integer> it = array.iterator();
+        it.next();
+        it.next();
     }
 
     @Test
@@ -92,13 +96,12 @@ public class SimpleArrayTest {
         simpleArray.add(1);
         simpleArray.add(2);
         simpleArray.add(3);
-        assertThat(simpleArray.hasNext(), is(true));
-        assertThat(simpleArray.hasNext(), is(true));
-        assertThat(simpleArray.next(), is(1));
-        assertThat(simpleArray.next(), is(2));
-        assertThat(simpleArray.next(), is(3));
-        simpleArray.next();
-        simpleArray.next();
-        assertThat(simpleArray.hasNext(), is(false));
+        Iterator<Integer> it = simpleArray.iterator();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+        assertThat(it.hasNext(), is(false));
     }
 }

@@ -8,13 +8,14 @@ import java.util.Objects;
  * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 2. Generic.
  * 5.2.1. Реализовать SimpleArray<T> [#288973]
  *
+ * @version 2
  * @param <T>
  * @author D.Stepanov
  * @since 22.05.2020.
  */
-public class SimpleArray<T> implements Iterator<T> {
+public class SimpleArray<T> implements Iterable<T> {
     private int index = 0;
-    Object[] arrays;
+    private Object[] arrays;
 
     /**
      * Инициализация массива до размера size.
@@ -31,13 +32,7 @@ public class SimpleArray<T> implements Iterator<T> {
      * @param model
      */
     public void add(T model) {
-        try {
-            int i = Objects.checkIndex(this.index, this.arrays.length);
-            this.arrays[i] = model;
-            index++;
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Значение не найдено");
-        }
+        this.arrays[index++] = model;
     }
 
     /**
@@ -47,29 +42,17 @@ public class SimpleArray<T> implements Iterator<T> {
      * @param model
      */
     public void set(int point, T model) {
-        try {
-            int i = Objects.checkIndex(point, this.arrays.length);
-            this.arrays[i] = model;
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Значение не найдено");
-        }
+        this.arrays[Objects.checkIndex(point, index)] = model;
     }
 
     /**
      * Возвращает элемент массива.
      *
-     * @param position
+     * @param point
      * @return
      */
-    public T get(int position) {
-        T rsl = null;
-        try {
-            int i = Objects.checkIndex(position, this.arrays.length);
-            rsl = (T) this.arrays[i];
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Значение не найдено");
-        }
-        return rsl;
+    public T get(int point) {
+        return (T) this.arrays[point];
     }
 
     /**
@@ -79,34 +62,36 @@ public class SimpleArray<T> implements Iterator<T> {
      */
     public boolean remove(int point) {
         boolean rsl = false;
-        try {
-            int i = Objects.checkIndex(point, this.arrays.length);
-            System.arraycopy(this.arrays, i + 1, this.arrays, i, this.arrays.length - i - 1);
-            this.arrays[this.arrays.length - 1] = null;
-            rsl = true;
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Значение не найдено");
-        }
+        int i = Objects.checkIndex(point, index + 1);
+        System.arraycopy(this.arrays, i + 1, this.arrays, i, index - 1 - i);
+        this.arrays[index - 1] = null;
+        index--;
+        rsl = true;
         return rsl;
     }
 
     /**
      * итератор.
      */
-    private int iterStep = 0;
-
     @Override
-    public boolean hasNext() {
-        return iterStep < this.arrays.length;
-    }
+    public Iterator<T> iterator() {
+        Iterator<T> iterator = new Iterator<T>() {
+            private int iterStep = 0;
 
-    @Override
-    public T next() {
-        if (!hasNext()) {
-            throw new NoSuchElementException();
-        } else {
-            return (T) this.arrays[iterStep++];
-        }
+            @Override
+            public boolean hasNext() {
+                return iterStep < arrays.length && arrays[iterStep] != null;
+            }
 
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                } else {
+                    return (T) arrays[iterStep++];
+                }
+            }
+        };
+        return iterator;
     }
 }
