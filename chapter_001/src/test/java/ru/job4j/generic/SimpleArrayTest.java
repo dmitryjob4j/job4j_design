@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 2. Generic.
  * 5.2.1. Реализовать SimpleArray<T> [#288973]
  * Тесты.
- * @version 2
+ * @version 3
  */
 public class SimpleArrayTest {
     private SimpleArray<Integer> simpleArray;
@@ -77,9 +77,10 @@ public class SimpleArrayTest {
         simpleArray.set(1, 5);
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void exceptionArrayIndex() {
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void exceptionGetIndex() {
         simpleArray.get(5);
+        assertNull(simpleArray.get(4));
     }
 
     //итератор
@@ -102,6 +103,7 @@ public class SimpleArrayTest {
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(2));
         assertThat(it.next(), is(3));
-        assertThat(it.hasNext(), is(false));
+        assertThat(it.hasNext(), is(true));
+        assertNull(it.next());
     }
 }
