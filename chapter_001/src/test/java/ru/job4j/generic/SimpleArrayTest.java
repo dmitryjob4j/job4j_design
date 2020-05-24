@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 2. Generic.
  * 5.2.1. Реализовать SimpleArray<T> [#288973]
  * Тесты.
- * @version 3
+ * @version 4
  */
 public class SimpleArrayTest {
     private SimpleArray<Integer> simpleArray;
@@ -21,12 +21,6 @@ public class SimpleArrayTest {
     @Before
     public void setUp() {
         simpleArray = new SimpleArray<>(5);
-    }
-
-    @Test
-    public void trueNewSimleArray() {
-        assertNull(simpleArray.get(1));
-        assertNull(simpleArray.get(4));
     }
 
     @Test
@@ -68,7 +62,6 @@ public class SimpleArrayTest {
         simpleArray.add(4);
         simpleArray.add(5);
         simpleArray.remove(3);
-        assertNull(simpleArray.get(4));
         assertThat(simpleArray.get(3), is(5));
     }
 
@@ -91,6 +84,11 @@ public class SimpleArrayTest {
         it.next();
         it.next();
     }
+    @Test
+    public void iterArrayEmpty() {
+        Iterator<Integer> it = simpleArray.iterator();
+        assertThat(it.hasNext(), is(false));
+    }
 
     @Test
     public void nextValueAndHasNext() {
@@ -103,7 +101,6 @@ public class SimpleArrayTest {
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(2));
         assertThat(it.next(), is(3));
-        assertThat(it.hasNext(), is(true));
-        assertNull(it.next());
+        assertThat(it.hasNext(), is(false));
     }
 }

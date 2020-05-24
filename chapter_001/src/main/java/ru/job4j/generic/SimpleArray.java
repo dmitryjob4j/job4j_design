@@ -8,9 +8,9 @@ import java.util.Objects;
  * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 2. Generic.
  * 5.2.1. Реализовать SimpleArray<T> [#288973]
  *
- * @version 3
  * @param <T>
  * @author D.Stepanov
+ * @version 4
  * @since 22.05.2020.
  */
 public class SimpleArray<T> implements Iterable<T> {
@@ -52,7 +52,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @return
      */
     public T get(int point) {
-        return (T) this.arrays[Objects.checkIndex(point, this.arrays.length)];
+        return (T) this.arrays[Objects.checkIndex(point, index)];
     }
 
     /**
@@ -80,7 +80,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return iterStep < arrays.length;
+                return iterStep < arrays.length && iterStep < index;
             }
 
             @Override
