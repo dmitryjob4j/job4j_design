@@ -90,7 +90,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return iterStep < container.length && iterStep < index;
+                return iterStep < index;
             }
 
             @Override
