@@ -44,8 +44,7 @@ public class EventIt implements Iterator<Integer> {
     public Integer next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
-        } else {
-            return numbers[point++];
         }
+        return numbers[point++];
     }
 }

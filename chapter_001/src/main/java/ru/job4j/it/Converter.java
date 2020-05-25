@@ -28,9 +28,8 @@ public class Converter {
             public Integer next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                } else {
-                    return array.next();
                 }
+                return array.next();
             }
         };
     }
