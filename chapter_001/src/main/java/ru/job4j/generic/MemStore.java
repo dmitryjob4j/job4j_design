@@ -9,7 +9,7 @@ import java.util.List;
  * универсальное хранилище MemStore.
  *
  * @author D.Stepanov
- * @version 1
+ * @version 2
  * @since 24.05.2020.
  */
 public class MemStore<T extends Base> implements Store {
@@ -35,9 +35,8 @@ public class MemStore<T extends Base> implements Store {
      */
     @Override
     public boolean replace(String id, Base model) {
-        Base find = findById(id);
-        if (find != null) {
-            int i = mem.indexOf(find);
+        int i = indexOf(id);
+        if (i != -1) {
             mem.set(i, (T) model);
             return true;
         } else {
@@ -53,9 +52,8 @@ public class MemStore<T extends Base> implements Store {
      */
     @Override
     public boolean delete(String id) {
-        Base find = findById(id);
-        if (find != null) {
-            int i = mem.indexOf(find);
+        int i = indexOf(id);
+        if (i != -1) {
             mem.remove(i);
             return true;
         } else {
@@ -64,20 +62,36 @@ public class MemStore<T extends Base> implements Store {
     }
 
     /**
-     * ищет модель в хронилище по id.
+     * поиск модель в хронилище по id.
      *
      * @param id
      * @return
      */
     @Override
-    public Base findById(String id) {
-        Base result = null;
-        for (Base value : mem) {
+    public T findById(String id) {
+        T result = null;
+        for (T value : mem) {
             if (value.getId().equals(id)) {
                 result = value;
                 break;
             }
         }
         return result;
+    }
+
+    /**
+     * поеск инндекса модели по id
+     * @param id
+     * @return
+     */
+    private int indexOf(String id) {
+        int rsl = -1;
+        for (T value : mem) {
+            if (value.getId().equals(id)) {
+                rsl = mem.indexOf(value);
+                break;
+            }
+        }
+        return rsl;
     }
 }
