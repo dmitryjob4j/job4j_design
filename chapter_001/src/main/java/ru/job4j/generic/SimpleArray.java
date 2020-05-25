@@ -87,9 +87,8 @@ public class SimpleArray<T> implements Iterable<T> {
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                } else {
-                    return (T) arrays[iterStep++];
                 }
+                return (T) arrays[iterStep++];
             }
         };
         return iterator;
