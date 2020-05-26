@@ -1,9 +1,7 @@
 package ru.job4j.collectoin;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 3. List
@@ -51,9 +49,7 @@ public class SimpleArray<T> implements Iterable<T> {
         modCount++;
         if (index == size) {
             this.size += newSize;
-            Object[] newContainer = new Object[size];
-            System.arraycopy(this.container, 0, newContainer, 0, index);
-            this.container = newContainer;
+            container = Arrays.copyOf(container, size);
         }
         this.container[index++] = modell;
     }
