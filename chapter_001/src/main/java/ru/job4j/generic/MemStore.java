@@ -9,7 +9,7 @@ import java.util.List;
  * универсальное хранилище MemStore.
  *
  * @author D.Stepanov
- * @version 3
+ * @version 4
  * @since 24.05.2020.
  */
 public class MemStore<T extends Base> implements Store<T> {
@@ -86,6 +86,13 @@ public class MemStore<T extends Base> implements Store<T> {
      * @return
      */
     private int indexOf(String id) {
-            return mem.indexOf(findById(id));
+        int rsl = -1;
+        for (int i = 0; i < mem.size(); i++) {
+            if (mem.get(i).getId().equals(id)) {
+                rsl = i;
+                break;
+            }
+        }
+        return rsl;
     }
 }
