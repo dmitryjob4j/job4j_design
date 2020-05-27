@@ -1,0 +1,69 @@
+package ru.job4j.collection;
+
+import org.junit.Test;
+import ru.job4j.collectoin.ForwardLinked;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import static org.junit.Assert.*;
+import static org.hamcrest.core.Is.is;
+
+/**
+ * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 3. List
+ * 3. Удалить head в односвязном списке. [#288955]
+ * тесты.
+ *
+ * @author D.Stepanov
+ * @version 1
+ * @since 27.05.2020.
+ */
+public class ForwardLinkedTest {
+    @Test
+    public void addForwardLinked1and2() {
+        ForwardLinked<Integer> forwardLinked = new ForwardLinked<>();
+        forwardLinked.add(1);
+        forwardLinked.add(2);
+        forwardLinked.add(3);
+        assertThat(forwardLinked.get(0), is(1));
+        assertThat(forwardLinked.get(1), is(2));
+        assertThat(forwardLinked.get(2), is(3));
+    }
+
+    @Test
+    public void getAndDeleteElement() {
+        ForwardLinked<Integer> forwardLinked = new ForwardLinked<>();
+        forwardLinked.add(1);
+        forwardLinked.add(2);
+        forwardLinked.add(3);
+        assertThat(forwardLinked.get(0), is(1));
+        forwardLinked.deleteFirst();
+        assertThat(forwardLinked.get(0), is(2));
+        forwardLinked.deleteFirst();
+        assertThat(forwardLinked.get(0), is(3));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenDeleteFirst() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.deleteFirst();
+        linked.iterator().next();
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenDeleteEmptyLinked() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.deleteFirst();
+    }
+
+    @Test
+    public void whenMultiDelete() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.add(2);
+        linked.deleteFirst();
+        Iterator<Integer> it = linked.iterator();
+        assertThat(it.next(), is(2));
+    }
+}
