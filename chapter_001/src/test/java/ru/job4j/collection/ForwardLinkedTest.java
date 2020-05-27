@@ -25,9 +25,9 @@ public class ForwardLinkedTest {
         forwardLinked.add(1);
         forwardLinked.add(2);
         forwardLinked.add(3);
-        assertThat(forwardLinked.get(0), is(1));
-        assertThat(forwardLinked.get(1), is(2));
-        assertThat(forwardLinked.get(2), is(3));
+        assertThat(forwardLinked.get(1), is(1));
+        assertThat(forwardLinked.get(2), is(2));
+        assertThat(forwardLinked.get(3), is(3));
     }
 
     @Test
@@ -36,11 +36,11 @@ public class ForwardLinkedTest {
         forwardLinked.add(1);
         forwardLinked.add(2);
         forwardLinked.add(3);
-        assertThat(forwardLinked.get(0), is(1));
+        assertThat(forwardLinked.get(1), is(1));
         forwardLinked.deleteFirst();
-        assertThat(forwardLinked.get(0), is(2));
+        assertThat(forwardLinked.get(1), is(2));
         forwardLinked.deleteFirst();
-        assertThat(forwardLinked.get(0), is(3));
+        assertThat(forwardLinked.get(1), is(3));
     }
 
     @Test(expected = NoSuchElementException.class)

@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class ForwardLinked<T> implements SimpleContainer<T> {
     private Node<T> head;
-    private int size = 1;
+    private int size = 0;
 
     /**
      * удаление первого элемента.
@@ -29,6 +29,26 @@ public class ForwardLinked<T> implements SimpleContainer<T> {
     }
 
     /**
+     * Удаление последнего элемента.
+     */
+    public T deleteLast() {
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        T result;
+        if (head.next != null) {
+            Node<T> last = findNode(size - 1);
+            result = last.next.item;
+            last.next = null;
+        } else {
+            result = head.item;
+            head = null;
+        }
+        size--;
+        return result;
+    }
+
+    /**
      * Добавление элемента.
      *
      * @param value
@@ -38,6 +58,7 @@ public class ForwardLinked<T> implements SimpleContainer<T> {
         Node<T> node = new Node<T>(value, null);
         if (head == null) {
             head = node;
+            size++;
             return;
         }
         Node<T> tail = head;
@@ -66,12 +87,21 @@ public class ForwardLinked<T> implements SimpleContainer<T> {
      * @return
      */
     public Node<T> findNode(int index) {
+        index -= 1;
         Objects.checkIndex(index, size);
         Node<T> t = head;
         for (int i = 0; i < index; i++) {
             t = t.next;
         }
         return t;
+    }
+
+    /**
+     * Возвращает размер коллекции. Если return "0" значит пуста.
+     * @return
+     */
+    public int getSize() {
+        return size;
     }
 
     /**
