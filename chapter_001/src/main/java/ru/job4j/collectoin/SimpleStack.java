@@ -31,16 +31,6 @@ public class SimpleStack<T> {
     }
 
     /**
-     * Возвращает элемент по индексу.
-     *
-     * @param index
-     * @return
-     */
-    public T get(int index) {
-        return linked.get(index);
-    }
-
-    /**
      * Возвращает размер коллекции.
      *
      * @return
