@@ -1,0 +1,53 @@
+package ru.job4j.collection;
+
+import org.junit.Test;
+import ru.job4j.collectoin.SimpleQueue;
+
+import java.util.NoSuchElementException;
+
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.is;
+
+/**
+ * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 3. List
+ * 5. Очередь на двух стеках [#288959]
+ * Тесты.
+ *
+ * @author D.Stepanov
+ * @version 1
+ * @since 28.05.2020.
+ */
+public class SimpleQueueTest<T> {
+    @Test
+    public void whenPushPoll() {
+        SimpleQueue<Integer> queue = new SimpleQueue<>();
+        queue.push(1);
+        int rsl = queue.poll();
+        assertThat(rsl, is(1));
+    }
+
+    @Test
+    public void when2PushPoll() {
+        SimpleQueue<Integer> queue = new SimpleQueue<>();
+        queue.push(1);
+        queue.push(2);
+        int rsl = queue.poll();
+        assertThat(rsl, is(1));
+    }
+
+    @Test
+    public void when2PushPollPushPoll() {
+        SimpleQueue<Integer> queue = new SimpleQueue<>();
+        queue.push(1);
+        queue.poll();
+        queue.push(2);
+        int rsl = queue.poll();
+        assertThat(rsl, is(2));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenEmptyPoll() {
+        SimpleQueue<Integer> queue = new SimpleQueue<>();
+        queue.poll();
+    }
+}
