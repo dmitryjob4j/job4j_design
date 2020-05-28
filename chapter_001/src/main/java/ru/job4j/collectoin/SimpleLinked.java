@@ -111,14 +111,10 @@ public class SimpleLinked<E> implements SimpleContainer<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                if (iterStep == 0) {
-                    iterStep++;
-                    return e.item;
-                } else {
-                    iterStep++;
-                    e = e.next;
-                    return e.item;
-                }
+                E value = e.item;
+                e = e.next;
+                iterStep++;
+                return value;
             }
         };
         return iterator;
