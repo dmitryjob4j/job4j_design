@@ -24,7 +24,7 @@ public class ForwardLinked<T> implements SimpleContainer<T> {
         if (head == null) {
             throw new NoSuchElementException();
         }
-        head = head.next;
+        head = head.next == null ? null : head.next;
         size--;
     }
 
@@ -98,6 +98,7 @@ public class ForwardLinked<T> implements SimpleContainer<T> {
 
     /**
      * Возвращает размер коллекции. Если return "0" значит пуста.
+     *
      * @return
      */
     public int getSize() {

@@ -20,6 +20,15 @@ import static org.hamcrest.core.Is.is;
  */
 public class ForwardLinkedTest {
     @Test
+    public void deleteFirstOneElement() {
+        ForwardLinked<Integer> forwardLinked = new ForwardLinked<>();
+        forwardLinked.add(1);
+        assertThat(forwardLinked.get(1), is(1));
+        forwardLinked.deleteFirst();
+        assertThat(forwardLinked.getSize(), is(0));
+    }
+
+    @Test
     public void addForwardLinked1and2() {
         ForwardLinked<Integer> forwardLinked = new ForwardLinked<>();
         forwardLinked.add(1);
