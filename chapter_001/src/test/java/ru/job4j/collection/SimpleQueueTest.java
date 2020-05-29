@@ -14,10 +14,21 @@ import static org.hamcrest.core.Is.is;
  * Тесты.
  *
  * @author D.Stepanov
- * @version 1
+ * @version 2
  * @since 28.05.2020.
  */
 public class SimpleQueueTest<T> {
+    @Test
+    public void test() {
+        SimpleQueue<Integer> queue = new SimpleQueue<>();
+        queue.push(1);
+        queue.push(2);
+        queue.push(3);
+        queue.poll();
+        queue.push(4);
+        assertThat(queue.poll(), is(2));
+    }
+
     @Test
     public void whenPushPoll() {
         SimpleQueue<Integer> queue = new SimpleQueue<>();

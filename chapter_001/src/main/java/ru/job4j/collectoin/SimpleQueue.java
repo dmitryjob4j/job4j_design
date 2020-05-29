@@ -6,7 +6,7 @@ package ru.job4j.collectoin;
  *
  * @param <T>
  * @author D.Stepanov
- * @version 1
+ * @version 2
  * @since 28.05.2020.
  */
 public class SimpleQueue<T> {
@@ -20,7 +20,9 @@ public class SimpleQueue<T> {
      */
     public T poll() {
         inToOut(in, out);
-        return out.pop();
+        T rsl = out.pop();
+        inToOut(out, in);
+        return rsl;
     }
 
     /**
