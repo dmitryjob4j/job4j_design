@@ -6,7 +6,7 @@ package ru.job4j.collectoin;
  *
  * @param <T>
  * @author D.Stepanov
- * @version 2
+ * @version 3
  * @since 28.05.2020.
  */
 public class SimpleQueue<T> {
@@ -19,10 +19,10 @@ public class SimpleQueue<T> {
      * @return
      */
     public T poll() {
-        inToOut(in, out);
-        T rsl = out.pop();
-        inToOut(out, in);
-        return rsl;
+        if (out.size() == 0) {
+            inToOut(in, out);
+        }
+        return out.pop();
     }
 
     /**
@@ -36,6 +36,7 @@ public class SimpleQueue<T> {
 
     /**
      * Метод перекладывает обьекты из коллекции in в колекцию out LiFo.
+     *
      * @param in
      * @param out
      */
