@@ -11,7 +11,7 @@ import static org.hamcrest.core.Is.is;
 
 /**
  * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 3. List
- * 3. Удалить head в односвязном списке. [#288955]
+ * 6. Перевернуть связанный список [#288960]
  * тесты.
  *
  * @author D.Stepanov
@@ -19,6 +19,54 @@ import static org.hamcrest.core.Is.is;
  * @since 27.05.2020.
  */
 public class ForwardLinkedTest {
+
+    @Test
+    public void whenAddThenIter() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.add(2);
+        Iterator<Integer> it = linked.iterator();
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenAddAndRevertThenIter() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.add(2);
+        linked.add(3);
+        linked.add(4);
+        linked.add(5);
+        linked.revert();
+        Iterator<Integer> it = linked.iterator();
+        assertThat(it.next(), is(5));
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(1));
+        assertThat(it.hasNext(), is(false));
+        it.next();
+    }
+
+    @Test
+    public void whenDeletLinkedAndRevert() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.add(2);
+        linked.add(3);
+        linked.add(4);
+        linked.add(5);
+        linked.deleteFirst();
+        linked.revert();
+        Iterator<Integer> it = linked.iterator();
+        assertThat(it.next(), is(5));
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(false));
+    }
+
     @Test
     public void deleteFirstOneElement() {
         ForwardLinked<Integer> forwardLinked = new ForwardLinked<>();

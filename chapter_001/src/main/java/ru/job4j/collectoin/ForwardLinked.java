@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**
  * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы. 3. List
- * 3. Удалить head в односвязном списке. [#288955]
+ * 6. Перевернуть связанный список [#288960]
  *
  * @param <T>
  * @author D.Stepanov
@@ -24,7 +24,7 @@ public class ForwardLinked<T> implements SimpleContainer<T> {
         if (head == null) {
             throw new NoSuchElementException();
         }
-        head = head.next == null ? null : head.next;
+        head = head.next;
         size--;
     }
 
@@ -97,6 +97,29 @@ public class ForwardLinked<T> implements SimpleContainer<T> {
     }
 
     /**
+     * Переворачивает односвязный список
+     */
+    public void revert() {
+        Node<T> first = head;
+        Node<T> second = first.next;
+        Node<T> third = second.next;
+
+        Node<T> next = third;
+        Node<T> prev = second;
+
+        first.next = null;
+        second.next = first;
+
+        while (next != null) {
+            Node<T> temp = next.next;
+            next.next = prev;
+            prev = next;
+            next = temp;
+        }
+        head = prev;
+    }
+
+    /**
      * Возвращает размер коллекции. Если return "0" значит пуста.
      *
      * @return
@@ -118,6 +141,7 @@ public class ForwardLinked<T> implements SimpleContainer<T> {
             this.item = item;
             this.next = next;
         }
+
     }
 
     /**
