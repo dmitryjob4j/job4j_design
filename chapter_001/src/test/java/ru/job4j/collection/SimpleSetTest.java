@@ -33,8 +33,8 @@ public class SimpleSetTest {
         set.add("Anton");
         set.add("Stas");
         set.add("Pavel");
-        assertThat(set.equalsSet("Stas"), is(true));
-        assertThat(set.equalsSet("Dima"), is(false));
+        assertThat(set.contains("Stas"), is(true));
+        assertThat(set.contains("Dima"), is(false));
     }
 
     @Test(expected = NoSuchElementException.class)

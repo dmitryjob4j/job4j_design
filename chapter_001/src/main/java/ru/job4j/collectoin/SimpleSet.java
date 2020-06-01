@@ -20,7 +20,7 @@ public class SimpleSet<E> implements Iterable<E> {
      * @param model
      */
     public void add(E model) {
-        if (!equalsSet(model)) {
+        if (!contains(model)) {
             sets.add(model);
         }
     }
@@ -31,7 +31,7 @@ public class SimpleSet<E> implements Iterable<E> {
      * @param model
      * @return
      */
-    public boolean equalsSet(E model) {
+    public boolean contains(E model) {
         boolean rsl = false;
         for (E value : sets) {
             if (model.equals(value)) {
