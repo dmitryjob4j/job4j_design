@@ -6,12 +6,12 @@ import java.util.Queue;
 
 /**
  * 2. Уровень - Джуниор.Блок 1. Структуры данных и алгоритмы.6. Tree
- * 1. Создать элементарную структуру дерева
+ * 2. Добавить метод boolean isBinary() [#288992]
  *
  * @param <E>
  * @author DStepanov haoos@inbox.ru
  * @version 1
- * @since 7.06.2020
+ * @since 08.06.2020
  */
 public class Tree<E> implements SimpleTree<E> {
     private final Node<E> root;
@@ -21,11 +21,29 @@ public class Tree<E> implements SimpleTree<E> {
     }
 
     /**
+     * проверяет количество дочерних элементов <=2.
+     *
+     * @return true/false.
+     */
+    public boolean isBinary() {
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        while (!data.isEmpty()) {
+            Node<E> el = data.poll();
+            if (el.children.size() > 2) {
+                return false;
+            }
+            data.addAll(el.children);
+        }
+        return true;
+    }
+
+    /**
      * Добовление child к родителю.
      *
-     * @param parent
-     * @param child
-     * @return
+     * @param parent родитель.
+     * @param child  дочерний.
+     * @return true/false.
      */
     @Override
     public boolean add(E parent, E child) {
@@ -44,8 +62,8 @@ public class Tree<E> implements SimpleTree<E> {
     /**
      * поиск узла.
      *
-     * @param value
-     * @return
+     * @param value findBy
+     * @return true/fals
      */
     @Override
     public Optional<Node<E>> findBy(E value) {
