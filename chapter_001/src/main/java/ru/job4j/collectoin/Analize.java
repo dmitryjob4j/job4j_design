@@ -1,45 +1,61 @@
 package ru.job4j.collectoin;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * 2. Уровень - Джуниор. Блок 1. Структуры данных и алгоритмы. 7. Контрольные вопросы
  * 2. Статистику по коллекции.
  *
  * @author DStepanov haoos@inbox.ru
- * @version 1
- * @since 13.06.2020
+ * @version 2
+ * @since 17.06.2020
  */
 public class Analize {
     /**
      * Подсчет статистики двух коллекций.
      *
      * @param previous вхобные
-     * @param current измененные
-     * @return
+     * @param current  измененные
+     * @return Info
      */
     public Info diff(List<User> previous, List<User> current) {
+        Map<Integer, User> prev = toMap(previous);
         int add = 0;
         int chengs = 0;
-        int dell = 0;
-        int noModif = 0;
+        int dell;
         if (current.isEmpty()) {
-            dell = previous.size();
+            dell = prev.size();
             return new Info(add, chengs, dell);
         }
-        for (User uP : previous) {
-            for (User uC : current) {
-                if (uP.id == uC.id && !uP.name.equals(uC.name)) {
-                    chengs++;
-                }
-                if (uP.equals(uC)) {
-                    noModif++;
-                }
+        for (User user : current) {
+            User tmp = prev.remove(user.id);
+            if(tmp == null){
+                add++;
+            }else if(!tmp.name.equals(user.name)){
+                chengs++;
             }
         }
-        dell = previous.size() - noModif - chengs;
-        add = current.size() - (previous.size() - dell);
+        dell = prev.size();
         return new Info(add, chengs, dell);
+    }
+
+    /**
+     * преобразование list(User) в Map(Integer, User).
+     *
+     * @param list List(User)
+     * @return map
+     */
+    private Map<Integer, User> toMap(List<User> list) {
+        return list.stream()
+                .distinct()
+                .collect(Collectors
+                        .toMap(
+                                i -> i.id,
+                                u -> u
+                        )
+                );
     }
 
     /**
