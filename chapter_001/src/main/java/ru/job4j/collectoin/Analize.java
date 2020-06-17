@@ -18,7 +18,7 @@ public class Analize {
      *
      * @param previous вхобные
      * @param current  измененные
-     * @return
+     * @return Info
      */
     public Info diff(List<User> previous, List<User> current) {
         Map<Integer, User> prev = toMap(previous);
@@ -41,11 +41,11 @@ public class Analize {
     /**
      * Считаем совподения
      *
-     * @param previous
-     * @param current
-     * @param p1
-     * @param p2
-     * @return
+     * @param previous map
+     * @param current  map
+     * @param p1       predicat
+     * @param p2       predicat
+     * @return int
      */
     private int countEl(Map<Integer, User> previous, Map<Integer, User> current,
                         Predicate<Boolean> p1, Predicate<Boolean> p2) {
@@ -55,21 +55,20 @@ public class Analize {
     }
 
     /**
-     * преобразование list(User) в Map(Integer, User)
+     * преобразование list(User) в Map(Integer, User).
      *
-     * @param list
-     * @return
+     * @param list List(User)
+     * @return map
      */
     private Map<Integer, User> toMap(List<User> list) {
-        Map<Integer, User> map = list.stream()
+        return list.stream()
+                .distinct()
                 .collect(Collectors
                         .toMap(
                                 i -> i.id,
-                                u -> u,
-                                (i1, i2) -> i1.equals(i2) ? i1 : i2
+                                u -> u
                         )
                 );
-        return map;
     }
 
     /**
