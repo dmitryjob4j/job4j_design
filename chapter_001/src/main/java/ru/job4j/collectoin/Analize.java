@@ -1,7 +1,6 @@
 package ru.job4j.collectoin;
 
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -9,49 +8,36 @@ import java.util.stream.Collectors;
  * 2. Статистику по коллекции.
  *
  * @author DStepanov haoos@inbox.ru
- * @version 2
- * @since 17.06.2020
+ * @version 1
+ * @since 13.06.2020
  */
 public class Analize {
     /**
      * Подсчет статистики двух коллекций.
      *
      * @param previous вхобные
-     * @param current  измененные
-     * @return Info
+     * @param current измененные
+     * @return
      */
     public Info diff(List<User> previous, List<User> current) {
         Map<Integer, User> prev = toMap(previous);
-        Map<Integer, User> curr = toMap(current);
         int add = 0;
         int chengs = 0;
         int dell;
-        int noModif;
-        if (curr.isEmpty()) {
+        if (current.isEmpty()) {
             dell = prev.size();
             return new Info(add, chengs, dell);
         }
-        chengs = countEl(prev, curr, p1 -> p1, p2 -> !p2);
-        noModif = countEl(prev, curr, p1 -> p1, p2 -> p2);
-        dell = prev.size() - noModif - chengs;
-        add = curr.size() - (prev.size() - dell);
+        for (User user : current) {
+            User tmp = prev.remove(user.id);
+            if (tmp == null) {
+                add++;
+            } else if (!tmp.name.equals(user.name)) {
+                chengs++;
+            }
+        }
+        dell = prev.size();
         return new Info(add, chengs, dell);
-    }
-
-    /**
-     * Считаем совподения
-     *
-     * @param previous map
-     * @param current  map
-     * @param p1       predicat
-     * @param p2       predicat
-     * @return int
-     */
-    private int countEl(Map<Integer, User> previous, Map<Integer, User> current,
-                        Predicate<Boolean> p1, Predicate<Boolean> p2) {
-        return (int) previous.entrySet().stream()
-                .filter(p -> p1.test(current.containsKey(p.getKey())) && p2.test(current.containsValue(p.getValue())))
-                .count();
     }
 
     /**
