@@ -16,8 +16,7 @@ public class Analize {
      * Подсчет статистики двух коллекций.
      *
      * @param previous вхобные
-     * @param current измененные
-     * @return
+     * @param current  измененные
      */
     public Info diff(List<User> previous, List<User> current) {
         Map<Integer, User> prev = toMap(previous);
