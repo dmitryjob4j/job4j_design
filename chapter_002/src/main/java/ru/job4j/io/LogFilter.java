@@ -1,16 +1,15 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 2.Уровень-Джуниор.Блок.2.Ввод-вывод.1.Ввод-вывод
- * 0.3.BufferedReader.[#289005]
+ * 0.4.BufferedOutputStream [#289006]
  *
  * @author DStepanov haoos@inbox.ru.
- * @since 21.06.2020.
+ * @since 22.06.2020.
  */
 public class LogFilter {
     /**
@@ -30,6 +29,23 @@ public class LogFilter {
     }
 
     /**
+     * Метод сохраняет результат сортировки в файл.
+     *
+     * @param log  List
+     * @param file File.txt
+     */
+    public static void save(List<String> log, String file) {
+        try (PrintWriter out = new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(file)
+                ))) {
+            log.forEach(l -> out.write(l + System.lineSeparator()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Main
      *
      * @param args main
@@ -39,5 +55,6 @@ public class LogFilter {
         for (String l : log) {
             System.out.println(l);
         }
+        save(log, "404.txt");
     }
 }
