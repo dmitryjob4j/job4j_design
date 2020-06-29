@@ -37,12 +37,10 @@ public class FreezeStr {
     private static Map<String, Integer> stringToMap(String string) {
         Map<String, Integer> map = new HashMap<>();
         int i = 0;
-        int r = 0;
         for (String el : string.split("")) {
             if (map.containsKey(el)) {
-                el = el + r;
+                el = el + 1;
                 map.put(el, i++);
-                r++;
             } else {
                 map.put(el, i++);
             }
