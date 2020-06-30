@@ -1,7 +1,6 @@
 package ru.job4j.collectoin;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Тестовые задания. Проверить две строчки на идентичность.
@@ -17,8 +16,8 @@ public class FreezeStr {
             return false;
         }
         Map<String, Integer> map = stringToMap(left, right);
-        for(String el: map.keySet()) {
-            if(map.get(el)%2 != 0) {
+        for (String el : map.keySet()) {
+            if (map.get(el) % 2 != 0) {
                 return false;
             }
         }
@@ -26,8 +25,7 @@ public class FreezeStr {
     }
 
     /**
-     *
-     * @param first String
+     * @param first  String
      * @param second String
      * @return Map
      */
