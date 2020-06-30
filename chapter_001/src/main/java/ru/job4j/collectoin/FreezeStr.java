@@ -16,13 +16,9 @@ public class FreezeStr {
         if (left.length() != right.length()) {
             return false;
         }
-        Map<String, Integer> l = stringToMap(left);
-        Map<String, Integer> r = stringToMap(right);
-        if (l.size() != r.size()) {
-            return false;
-        }
-        for (String i : l.keySet()) {
-            if (!r.containsKey(i)) {
+        Map<String, Integer> map = stringToMap(left, right);
+        for(String el: map.keySet()) {
+            if(map.get(el)%2 != 0) {
                 return false;
             }
         }
@@ -30,39 +26,21 @@ public class FreezeStr {
     }
 
     /**
-     * онвертирует строку в мап
-     * @param string String
+     *
+     * @param first String
+     * @param second String
      * @return Map
      */
-    private static Map<String, Integer> stringToMap(String string) {
+    private static Map<String, Integer> stringToMap(String first, String second) {
         Map<String, Integer> map = new HashMap<>();
-        int i = 0;
+        String string = first.concat(second);
         for (String el : string.split("")) {
             if (map.containsKey(el)) {
-                el = el + 1;
-                map.put(el, i++);
+                map.put(el, (map.get(el) + 1));
             } else {
-                map.put(el, i++);
+                map.put(el, 1);
             }
         }
         return map;
-    }
-
-    public static void main(String[] args) {
-        String left = "JetBrainsIntelliJ IDEA Community Edition 2019.3.3libidea_rt.jar=54496:C:Program FilesJetBrainsIntelliJ IDEA Community Edition 2019.3.3";
-        String right = "JetBrainsIntelliJ IDEA Community Edition 2019.3.3libidea_rt.jar=54496:C:Program FilesJetBrainsIntelliJ IDEA Community Edition 2019.3.3";
-        boolean result;
-        Date date1 = new Date();
-        Map<String, Integer> l = stringToMap(left);
-        Map<String, Integer> r = stringToMap(right);
-        Date date2 = new Date();
-        System.out.println(l);
-        System.out.println(r);
-        System.out.println(date2.getTime() - date1.getTime());
-        Date date3 = new Date();
-        result = eq(left, right);
-        Date date4 = new Date();
-        System.out.println(result);
-        System.out.println(date4.getTime() - date3.getTime());
     }
 }
