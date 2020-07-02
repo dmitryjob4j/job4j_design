@@ -14,20 +14,16 @@ public class Analizy {
         Map<String, String> mapTarget = new LinkedHashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(source));
              PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-            reader.lines()
-                    .filter(l -> !l.isEmpty())
-                    .map(l -> l.split(" "))
-                    .forEach(l -> mapTarget.put(l[1], l[0]));
-            StringBuilder tergetData = null;
-            for (String data : mapTarget.keySet()) {
-                String err = mapTarget.get(data);
-                if (tergetData == null && (err.equals("400") || err.equals("500"))) {
-                    tergetData = new StringBuilder(data + ";");
+            StringBuilder targetData = new StringBuilder();
+            while (reader.ready()) {
+                String[] lines = reader.readLine().split(" ");
+                if (targetData.length() == 0 && (lines[0].equals("400") || lines[0].equals("500"))) {
+                    targetData.append(lines[1]).append(";");
                 }
-                if (tergetData != null && (err.equals("200") || err.equals("300"))) {
-                    tergetData.append(data).append(";");
-                    out.println(tergetData);
-                    tergetData = null;
+                if (targetData.length() != 0 && (lines[0].equals("200") || lines[0].equals("300"))) {
+                    targetData.append(lines[1]).append(";");
+                    out.println(targetData);
+                    targetData = new StringBuilder();
                 }
             }
         } catch (Exception e) {
