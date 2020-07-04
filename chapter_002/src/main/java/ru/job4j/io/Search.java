@@ -8,15 +8,18 @@ import java.util.List;
 
 /**
  * 2.Уровень-Джуниор.Блок.2.Ввод-вывод.1.Ввод-вывод
- * 4.1. Сканирование файловой системы. [#289001]
+ * 5. Валидация параметров запуска. [#289003]
  * задание выполнение через Маин
  *
  * @since 04.07.2020
  */
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, "js").forEach(System.out::println);
+        if (args.length < 2) {
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER. Or Argumetnt search is null");
+        }
+        Path start = Paths.get(args[0]);
+        search(start, args[1]).forEach(System.out::println);
     }
 
     /**
