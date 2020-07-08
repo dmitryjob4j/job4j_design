@@ -22,7 +22,6 @@ public class Zip {
     private List<Path> sources;
 
     public Zip() {
-
     }
 
     public Zip(String[] args) throws IOException {
@@ -40,10 +39,10 @@ public class Zip {
 
     }
 
-    public void packSingleFile(File source, File target) {
-        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
-            zip.putNextEntry(new ZipEntry(source.getPath()));
-            try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(source))) {
+    public void packSingleFile(Path source, Path target) {
+        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target.toFile())))) {
+            zip.putNextEntry(new ZipEntry(source.toAbsolutePath().getFileName().toString()));
+            try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(source.toFile()))) {
                 zip.write(out.readAllBytes());
             }
         } catch (Exception e) {
@@ -52,5 +51,9 @@ public class Zip {
     }
 
     public static void main(String[] args) {
+        Path source = Paths.get("C:/arhiv/1/out.txt");
+        Path target = Paths.get("C:/arhiv/out.zip");
+        Zip zip = new Zip();
+        zip.packSingleFile(source, target);
     }
 }
