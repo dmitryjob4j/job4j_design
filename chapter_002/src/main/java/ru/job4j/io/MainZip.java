@@ -1,13 +1,10 @@
 package ru.job4j.io;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.util.List;
 
 /**
  * 2.Джуниор.Блок.2.Ввод-вывод.1.Ввод-вывод
@@ -17,21 +14,19 @@ import java.util.zip.ZipOutputStream;
  * @since 06.07.2020
  */
 public class MainZip {
-    public static void main(String[] args) {
+    /**
+     * Тестовая архивация.
+     *
+     * @param args String[]
+     * @throws IOException Exception
+     */
+    public static void main(String[] args) throws IOException {
         ArgZip argZip = new ArgZip(args);
-        System.out.println(argZip.directory() + " " + argZip.exclude() + " " + argZip.output());
-        Path out = Paths.get("C:/arhiv/out.txt");
-        try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream("C:/arhiv/out.zip"));
-             FileInputStream fis = new FileInputStream(out.toString());) {
-            ZipEntry entry1 = new ZipEntry("out.txt");
-            zout.putNextEntry(entry1);
-            byte[] buffer = new byte[fis.available()];
-            fis.read(buffer);
-            zout.write(buffer);
-            zout.closeEntry();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        argZip.valid();
+        Zip zip = new Zip();
+        SearchFiles searchFiles = new SearchFiles(p -> !p.toFile().getName().endsWith(argZip.exclude()) && !p.toFile().getName().endsWith("zip"));
+        Files.walkFileTree(Paths.get(argZip.directory()), searchFiles);
+        List<Path> searches = searchFiles.getPaths();
+        zip.packFiles(searches, Paths.get(argZip.output()), argZip.directory());
     }
 }
