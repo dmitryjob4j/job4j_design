@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -24,9 +23,7 @@ public class MainZip {
         ArgZip argZip = new ArgZip(args);
         argZip.valid();
         Zip zip = new Zip();
-        SearchFiles searchFiles = new SearchFiles(p -> !p.toFile().getName().endsWith(argZip.exclude()) && !p.toFile().getName().endsWith("zip"));
-        Files.walkFileTree(Paths.get(argZip.directory()), searchFiles);
-        List<Path> searches = searchFiles.getPaths();
-        zip.packFiles(searches, Paths.get(argZip.output()), argZip.directory());
+        List<Path> searchFiles = zip.searchFiles(argZip.directory(), argZip.exclude());
+        zip.packFiles(searchFiles, Paths.get(argZip.output()), argZip.directory());
     }
 }

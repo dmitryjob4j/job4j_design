@@ -2,7 +2,8 @@ package ru.job4j.io;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.function.Predicate;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 2.Джуниор.Блок.2.Ввод-вывод.1.Ввод-вывод
@@ -13,6 +14,7 @@ import java.util.function.Predicate;
  */
 public class ArgZip {
     private final String[] args;
+    private Map<String, String> mapArgs = new HashMap<>();
 
     /**
      * Конструктор принимает входящий массив.
@@ -21,14 +23,21 @@ public class ArgZip {
      */
     public ArgZip(String[] args) {
         this.args = args;
+        for (int i = 0; i < this.args.length - 1; i++) {
+            switch (this.args[i]) {
+                case "-d", "-o", "-e" -> {
+                    this.mapArgs.put(this.args[i], this.args[i + 1]);
+                    i++;
+                }
+            }
+        }
     }
 
     /**
      * Проверка корректоности параметров
      *
-     * @return boolean
      */
-    public boolean valid() {
+    public void valid() {
         if (Files.notExists(Paths.get(directory())) || output().equals("")) {
             throw new IllegalArgumentException("Parameters set -d incorrectly");
         }
@@ -38,7 +47,6 @@ public class ArgZip {
         if (output().equals("")) {
             throw new IllegalArgumentException("Parameters set -o incorrectly");
         }
-        return true;
     }
 
     /**
@@ -47,7 +55,7 @@ public class ArgZip {
      * @return String
      */
     public String directory() {
-        return serchArgs(p -> p.equals("-d"), args);
+        return this.mapArgs.get("-d");
     }
 
     /**
@@ -56,7 +64,7 @@ public class ArgZip {
      * @return String
      */
     public String exclude() {
-        return serchArgs(p -> p.equals("-e"), args);
+        return this.mapArgs.get("-e");
     }
 
     /**
@@ -65,22 +73,6 @@ public class ArgZip {
      * @return String.
      */
     public String output() {
-        return serchArgs(p -> p.equals("-o"), args);
-    }
-
-    /**
-     * параметра в массиве args
-     *
-     * @param param      Predicat
-     * @param arrayParam args
-     * @return String
-     */
-    private String serchArgs(Predicate<String> param, String[] arrayParam) {
-        for (int i = 0; i < arrayParam.length; i++) {
-            if (param.test(arrayParam[i])) {
-                return arrayParam[i + 1];
-            }
-        }
-        return "";
+        return this.mapArgs.get("-o");
     }
 }
