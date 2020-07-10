@@ -13,7 +13,7 @@ import java.util.zip.ZipOutputStream;
  * 5.1.Архивировать проект.[#289010]
  * ArgZip разбивает входящий массив по параметрам.
  *
- * @since 06.07.2020
+ * @since 10.07.2020
  */
 public class Zip {
     /**
@@ -40,8 +40,9 @@ public class Zip {
 
     /**
      * Поиск файлов для архивации
+     *
      * @param derictory String
-     * @param exclude String
+     * @param exclude   String
      * @return List
      * @throws IOException exeption
      */

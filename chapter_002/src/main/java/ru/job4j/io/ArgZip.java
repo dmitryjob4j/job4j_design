@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 
 /**
  * 2.Джуниор.Блок.2.Ввод-вывод.1.Ввод-вывод
@@ -26,15 +25,7 @@ public class ArgZip {
         this.args = args;
         for (int i = 0; i < this.args.length - 1; i++) {
             switch (this.args[i]) {
-                case "-d" -> {
-                    this.mapArgs.put(this.args[i], this.args[i + 1]);
-                    i++;
-                }
-                case "-e" -> {
-                    this.mapArgs.put(this.args[i], this.args[i + 1]);
-                    i++;
-                }
-                case "-o" -> {
+                case "-d", "-o", "-e" -> {
                     this.mapArgs.put(this.args[i], this.args[i + 1]);
                     i++;
                 }
@@ -45,9 +36,8 @@ public class ArgZip {
     /**
      * Проверка корректоности параметров
      *
-     * @return boolean
      */
-    public boolean valid() {
+    public void valid() {
         if (Files.notExists(Paths.get(directory())) || output().equals("")) {
             throw new IllegalArgumentException("Parameters set -d incorrectly");
         }
@@ -57,7 +47,6 @@ public class ArgZip {
         if (output().equals("")) {
             throw new IllegalArgumentException("Parameters set -o incorrectly");
         }
-        return true;
     }
 
     /**
