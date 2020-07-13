@@ -12,12 +12,14 @@ import java.util.Scanner;
 public class UserMessage {
     private String name = "User";
 
-    public UserMessage();
+    public UserMessage() {
+
+    }
 
     /**
      * Конструктор с установкой имени пользователя.
      *
-     * @param name
+     * @param name String
      */
     public UserMessage(String name) {
         this.name = name;
@@ -28,7 +30,7 @@ public class UserMessage {
      *
      * @return String
      */
-    public String userMassage() {
+    public String userWord() {
         Scanner input = new Scanner(System.in);
         System.out.print(this.name + "->");
         return this.name + ": " + input.nextLine();

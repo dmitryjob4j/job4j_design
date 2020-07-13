@@ -1,27 +1,42 @@
 package ru.job4j.io.consolCaht;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.StringJoiner;
-
+/**
+ * 2.Уровень-Джуниор.Блок.2.Ввод-вывод.1.Ввод-вывод
+ * 6. Кодировка. [#289011]
+ * Консольный чат.
+ *
+ * @since 12.07.2020
+ */
 public class ConsolChat {
-    public static void main(String[] args) throws InterruptedException {
-        Path fileMassage = Paths.get("./chapter_002/data/botmessage.txt");
-        BotMessage botMessage = new BotMessage(fileMassage.toString());
-        botMessage.loadMessagToMap();
-        SaveDialog saveDialog = new SaveDialog("./chapter_002/data/storeMessage.txt");
+
+    /**
+     * Метод запускает собирает консольный чат
+     *
+     * @param botLangFile String
+     * @param saveChatFile String
+     */
+    public void chat(String botLangFile, String saveChatFile) {
+        BotMessage botMessage = new BotMessage(botLangFile);
+        SaveDialog saveDialog = new SaveDialog(saveChatFile);
         UserMessage userMessage = new UserMessage();
-        int i = 0;
-        StringJoiner stringJoiner = new StringJoiner(System.lineSeparator());
-        while (i < 10) {
-            String userMasseg = userMessage.userMassage();
-            stringJoiner.add(userMasseg);
-            saveDialog.saveMessageToMap(userMasseg);
-            String botMessag = botMessage.message();
-            stringJoiner.add(botMessag);
-            System.out.println(botMessag);
-            saveDialog.saveMessageToMap(botMessag);
-            i++;
+        String startStopBot = "User: продолжить";
+        while (!startStopBot.equals("User: закончить")) {
+            String user = userMessage.userWord();
+            saveDialog.saveMessageToMap(user);
+            if (user.equals("User: стоп")) {
+                startStopBot = user;
+            }
+            if (user.equals("User: продолжить")) {
+                startStopBot = user;
+            }
+            if (user.equals("User: закончить")) {
+                startStopBot = user;
+            }
+            if (startStopBot.equals("User: продолжить")) {
+                String bot = botMessage.botWord();
+                System.out.println(bot);
+                saveDialog.saveMessageToMap(bot);
+            }
         }
         saveDialog.saveToFile();
     }

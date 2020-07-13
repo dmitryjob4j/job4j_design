@@ -22,13 +22,14 @@ public class BotMessage {
     /**
      * Получаем путь к файлу.
      *
-     * @param fileMessage
+     * @param fileMessage String
      */
     public BotMessage(String fileMessage) {
         this.fileMessage = Paths.get(fileMessage);
         if (!this.fileMessage.toFile().isFile()) {
             throw new IllegalArgumentException("Системе не удается найти указанный путь");
         }
+        loadMessagToMap();
     }
 
     /**
@@ -49,11 +50,10 @@ public class BotMessage {
     /**
      * Генерируем случайную фразу из Map
      *
-     * @return
+     * @return String
      */
-    public String message() throws InterruptedException {
-        int randomMessage = new Random().nextInt(this.messages.size());
-        Thread.sleep(500);
-        return "Bot->" + this.messages.get(randomMessage);
+    public String botWord() {
+            int randomMessage = new Random().nextInt(this.messages.size());
+            return "Bot: " + this.messages.get(randomMessage);
     }
 }

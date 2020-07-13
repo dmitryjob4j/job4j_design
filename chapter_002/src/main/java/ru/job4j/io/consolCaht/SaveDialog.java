@@ -8,8 +8,8 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 2.Уровень-Джуниор.Блок.2.Ввод-вывод.1.Ввод-вывод
@@ -19,14 +19,14 @@ import java.util.Map;
  * @since 12.07.2020
  */
 public class SaveDialog {
-    private Map<Integer, String> dialogue = new HashMap<>();
+    private List<String> dialogue = new ArrayList<>();
     private int numMessag = 0;
     private Path fileStore;
 
     /**
      * Конструктор с файлом куда сохронять.
      *
-     * @param file
+     * @param file String
      */
     public SaveDialog(String file) {
         this.fileStore = Paths.get(file);
@@ -35,13 +35,13 @@ public class SaveDialog {
     /**
      * Сохраняет диалог в мап с добовлением текущей даты.
      *
-     * @param message
+     * @param message String
      */
     public void saveMessageToMap(String message) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d:M:YYYY;HH:MM:s");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d:M:yyyy;HH:mm:ss");
         Calendar calendar = new GregorianCalendar();
         String timeMessag = dateFormat.format(calendar.getTime()) + " " + message;
-        dialogue.put(this.numMessag++, timeMessag);
+        dialogue.add(timeMessag);
     }
 
     /**
@@ -49,11 +49,9 @@ public class SaveDialog {
      */
     public void saveToFile() {
         try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(this.fileStore.toFile())))) {
-            this.dialogue.keySet().forEach(k -> out.print(dialogue.get(k) + System.lineSeparator()));
+            this.dialogue.forEach(d -> out.print(d + System.lineSeparator()));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 }
