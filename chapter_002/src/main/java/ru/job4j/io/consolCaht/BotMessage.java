@@ -51,8 +51,9 @@ public class BotMessage {
      *
      * @return
      */
-    public String message() {
+    public String message() throws InterruptedException {
         int randomMessage = new Random().nextInt(this.messages.size());
-        return this.messages.get(randomMessage);
+        Thread.sleep(500);
+        return "Bot->" + this.messages.get(randomMessage);
     }
 }
