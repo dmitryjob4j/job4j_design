@@ -1,4 +1,4 @@
-package ru.job4j.io.consolCaht;
+package ru.job4j.consolCaht;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;

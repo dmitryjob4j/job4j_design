@@ -1,4 +1,4 @@
-package ru.job4j.io.consolCaht;
+package ru.job4j.consolCaht;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -53,7 +53,7 @@ public class BotMessage {
      * @return String
      */
     public String botWord() {
-            int randomMessage = new Random().nextInt(this.messages.size());
-            return "Bot: " + this.messages.get(randomMessage);
+        int randomMessage = new Random().nextInt(this.messages.size());
+        return "Bot: " + this.messages.get(randomMessage);
     }
 }

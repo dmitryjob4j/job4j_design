@@ -1,4 +1,4 @@
-package ru.job4j.io.consolCaht;
+package ru.job4j.consolCaht;
 
 import java.util.Scanner;
 
@@ -13,7 +13,6 @@ public class UserMessage {
     private String name = "User";
 
     public UserMessage() {
-
     }
 
     /**
