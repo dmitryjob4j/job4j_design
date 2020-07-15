@@ -24,18 +24,15 @@ public class ArgZip {
     public ArgZip(String[] args) {
         this.args = args;
         for (int i = 0; i < this.args.length - 1; i++) {
-            switch (this.args[i]) {
-                case "-d", "-o", "-e" -> {
-                    this.mapArgs.put(this.args[i], this.args[i + 1]);
-                    i++;
-                }
+            if (this.args[i].equals("-d") || this.args[i].equals("-e") || this.args[i].equals("-o")) {
+                this.mapArgs.put(this.args[i], this.args[i + 1]);
+                i++;
             }
         }
     }
 
     /**
      * Проверка корректоности параметров
-     *
      */
     public void valid() {
         if (Files.notExists(Paths.get(directory())) || output().equals("")) {
