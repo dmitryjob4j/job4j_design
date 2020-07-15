@@ -25,6 +25,15 @@ public class UserMessage {
     }
 
     /**
+     * Возврощает имя пользователя.
+     *
+     * @return String
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
      * Scaner сообщений пользователя
      *
      * @return String
@@ -33,5 +42,16 @@ public class UserMessage {
         Scanner input = new Scanner(System.in);
         System.out.print(this.name + "->");
         return this.name + ": " + input.nextLine();
+    }
+
+    /**
+     * переопределенный метод для тестирования.
+     *
+     * @param messag String
+     * @return String
+     */
+    public String userWord(String messag) {
+        System.out.print(this.name + "->");
+        return this.name + ": " + messag;
     }
 }

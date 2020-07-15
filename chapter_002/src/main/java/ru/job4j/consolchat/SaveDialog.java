@@ -37,11 +37,15 @@ public class SaveDialog {
      *
      * @param message String
      */
-    public void saveMessageToMap(String message) {
+    public void saveMessage(String message) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("d:M:yyyy;HH:mm:ss");
         Calendar calendar = new GregorianCalendar();
         String timeMessag = dateFormat.format(calendar.getTime()) + " " + message;
         dialogue.add(timeMessag);
+    }
+
+    public String getMessage(int index) {
+        return dialogue.get(index);
     }
 
     /**

@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -16,7 +16,7 @@ import java.util.Random;
  * @since 12.07.2020
  */
 public class BotMessage {
-    private Map<Integer, String> messages = new HashMap<>();
+    private List<String> messages = new ArrayList<>();
     private Path fileMessage;
 
     /**
@@ -29,18 +29,17 @@ public class BotMessage {
         if (!this.fileMessage.toFile().isFile()) {
             throw new IllegalArgumentException("Системе не удается найти указанный путь");
         }
-        loadMessagToMap();
+        loadMessag();
     }
 
     /**
-     * Передаем содержимое в Map
+     * Передаем содержимое в List
      */
-    public void loadMessagToMap() {
+    private void loadMessag() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.fileMessage.toFile()))) {
             String line;
-            int i = 0;
             while ((line = read.readLine()) != null) {
-                this.messages.put(i++, line);
+                this.messages.add(line);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +51,7 @@ public class BotMessage {
      *
      * @return String
      */
-    public String botWord() {
+    public String getBotMessag() {
         int randomMessage = new Random().nextInt(this.messages.size());
         return "Bot: " + this.messages.get(randomMessage);
     }

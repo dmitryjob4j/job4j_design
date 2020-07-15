@@ -10,32 +10,34 @@ package ru.job4j.consolchat;
 public class ConsolChat {
 
     /**
-     * Метод запускает собирает консольный чат
-     *
-     * @param botLangFile String
-     * @param saveChatFile String
+     * @param startChat   String
+     * @param pauseChat   String
+     * @param stopChats   String
+     * @param botMessage  BotMessage
+     * @param saveDialog  SaveDialog
+     * @param userMessage UserDialog
      */
-    public void chat(String botLangFile, String saveChatFile) {
-        BotMessage botMessage = new BotMessage(botLangFile);
-        SaveDialog saveDialog = new SaveDialog(saveChatFile);
-        UserMessage userMessage = new UserMessage();
-        String startStopBot = "User: продолжить";
-        while (!startStopBot.equals("User: закончить")) {
+    public void chat(String startChat, String pauseChat, String stopChats, BotMessage botMessage, SaveDialog saveDialog, UserMessage userMessage) {
+        String startBot = userMessage.getName() + ": " + startChat;
+        String pauseBot = userMessage.getName() + ": " + pauseChat;
+        String stopChat = userMessage.getName() + ": " + stopChats;
+        String startStopExit = startBot;
+        while (!startStopExit.equals(stopChat)) {
             String user = userMessage.userWord();
-            saveDialog.saveMessageToMap(user);
-            if (user.equals("User: стоп")) {
-                startStopBot = user;
+            saveDialog.saveMessage(user);
+            if (user.equals(pauseBot)) {
+                startStopExit = user;
             }
-            if (user.equals("User: продолжить")) {
-                startStopBot = user;
+            if (user.equals(startBot)) {
+                startStopExit = user;
             }
-            if (user.equals("User: закончить")) {
-                startStopBot = user;
+            if (user.equals(stopChat)) {
+                startStopExit = user;
             }
-            if (startStopBot.equals("User: продолжить")) {
-                String bot = botMessage.botWord();
+            if (startStopExit.equals(startBot)) {
+                String bot = botMessage.getBotMessag();
                 System.out.println(bot);
-                saveDialog.saveMessageToMap(bot);
+                saveDialog.saveMessage(bot);
             }
         }
         saveDialog.saveToFile();
