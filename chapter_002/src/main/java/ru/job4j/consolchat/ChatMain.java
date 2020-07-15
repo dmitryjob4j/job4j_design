@@ -1,4 +1,4 @@
-package ru.job4j.consolCaht;
+package ru.job4j.consolchat;
 /**
  * 2.Уровень-Джуниор.Блок.2.Ввод-вывод.1.Ввод-вывод
  * 6. Кодировка. [#289011]

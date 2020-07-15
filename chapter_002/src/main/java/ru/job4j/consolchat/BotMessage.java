@@ -1,4 +1,4 @@
-package ru.job4j.consolCaht;
+package ru.job4j.consolchat;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
