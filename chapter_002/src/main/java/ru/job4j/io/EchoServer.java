@@ -25,6 +25,7 @@ public class EchoServer {
                         System.out.println(str);
                         if (str.contains("msg=Bye")) {
                             work = false;
+                            break;
                         }
                     }
                     out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
