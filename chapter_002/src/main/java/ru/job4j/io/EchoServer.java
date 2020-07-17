@@ -20,8 +20,7 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
-                    //noinspection CheckStyle
-                    while (!(str = in.readLine()).isEmpty()) {
+                    while ((str = in.readLine()) != null && !str.isEmpty()) {
                         System.out.println(str);
                         if (str.contains("msg=Bye")) {
                             work = false;
