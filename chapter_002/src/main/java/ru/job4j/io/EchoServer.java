@@ -6,7 +6,7 @@ import java.net.Socket;
 
 /**
  * 2.Уровень-Джуниор.Блок.2.Ввод-вывод.2.Socket
- * 0. Что такое Socket? [#289018]
+ * 1. Бот [#289019]
  *
  * @since 17.07.2020
  */
@@ -22,12 +22,16 @@ public class EchoServer {
                     String str;
                     for (str = in.readLine(); !str.isEmpty(); str = in.readLine()) {
                         System.out.println(str);
-                        if (str.contains("msg=Bye")) {
+                        if (str.contains("msg=Exit")) {
                             work = false;
-                            break;
+                            out.write("Bye \r\n\r\n".getBytes());
+                        } else if (str.contains("msg=Hello")) {
+                            out.write("Hello, dear friend\r\n\r\n".getBytes());
+                        } else if (str.contains("msg=Any")) {
+                            out.write("Any \r\n\r\n".getBytes());
                         }
                     }
-                    out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
+                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                 }
             }
         }
