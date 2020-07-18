@@ -11,6 +11,12 @@ import java.net.Socket;
  * @since 17.07.2020
  */
 public class EchoServer {
+    /**
+     * Main запрос ответ к серверу.
+     *
+     * @param args String[]
+     * @throws IOException Exeption
+     */
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
             boolean work = true;
