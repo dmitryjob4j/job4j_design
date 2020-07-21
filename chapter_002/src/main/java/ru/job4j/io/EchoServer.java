@@ -1,16 +1,24 @@
 package ru.job4j.io;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
  * 2.Уровень-Джуниор.Блок.2.Ввод-вывод.2.Socket
- * 1. Бот [#289019]
+ * 4. Slf4j - вывод exception. [#288999]
  *
  * @since 17.07.2020
  */
 public class EchoServer {
+    /**
+     * приватная константа loggera
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
+
     /**
      * Main запрос ответ к серверу.
      *
@@ -37,6 +45,9 @@ public class EchoServer {
                         String[] tmp = str.split("[ |=]", 4);
                         out.write(tmp[2].getBytes());
                     }
+                    throw new Exception("Not supported code");
+                } catch (Exception e) {
+                    LOG.error("Exception in log example", e);
                 }
             }
         }
