@@ -1,9 +1,8 @@
-package ru.job4j.io.consolchat;
+package ru.job4j.consolchat;
 
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
-import ru.job4j.consolchat.SaveDialog;
 
 import java.io.BufferedReader;
 import java.io.File;

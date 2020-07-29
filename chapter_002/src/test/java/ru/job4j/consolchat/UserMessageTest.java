@@ -1,7 +1,6 @@
-package ru.job4j.io.consolchat;
+package ru.job4j.consolchat;
 
 import org.junit.Test;
-import ru.job4j.consolchat.UserMessage;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.*;
