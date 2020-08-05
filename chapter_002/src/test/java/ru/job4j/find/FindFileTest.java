@@ -26,8 +26,8 @@ public class FindFileTest {
     @Test
     public void findTreeFiles() throws IOException {
         File file1 = dirFolder.newFile("1.aaa");
-        File file2 = dirFolder.newFile("2.aaa");
-        File file3 = dirFolder.newFile("3.aaa");
+        dirFolder.newFile("2.aaa");
+        dirFolder.newFile("3.aaa");
         String derictory = file1.getParent();
         FindFiles findFiles = new FindFiles();
         List<Path> listFile = findFiles.find(path -> path.toFile().getName().endsWith(".aaa"), Paths.get(derictory));
@@ -40,8 +40,8 @@ public class FindFileTest {
     @Test
     public void findOneFiles() throws IOException {
         File file1 = dirFolder.newFile("1.aaa");
-        File file2 = dirFolder.newFile("2.aza");
-        File file3 = dirFolder.newFile("3.zaa");
+        dirFolder.newFile("2.aza");
+        dirFolder.newFile("3.zaa");
         String derictory = file1.getParent();
         FindFiles findFiles = new FindFiles();
         List<Path> listFile = findFiles.find(path -> path.toFile().getName().endsWith(".aaa"), Paths.get(derictory));

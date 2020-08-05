@@ -38,24 +38,23 @@ public class FindFiles {
      * @return Predicate
      */
     public Predicate<Path> findParam(String search, String paramSearch) {
-        if (paramSearch.equals("-f")) {
-            return p -> p.getFileName().toString().equals(search);
-        }
-        if (paramSearch.equals("-m")) {
-            String mask = search.replace("*", ".*").replace("?", ".?");
-            return path -> {
-                Pattern pat = Pattern.compile(mask);
-                Matcher mat = pat.matcher(path.getFileName().toString());
-                return mat.matches();
-            };
-        }
-        if (paramSearch.equals("-r")) {
-            return path -> {
+        Predicate<Path> result;
+        switch (paramSearch) {
+            case "-m" -> {
+                String mask = search.replace("*", ".*").replace("?", ".?");
+                result = path -> {
+                    Pattern pat = Pattern.compile(mask);
+                    Matcher mat = pat.matcher(path.getFileName().toString());
+                    return mat.matches();
+                };
+            }
+            case "-r" -> result = path -> {
                 Pattern pat = Pattern.compile(search);
                 Matcher mat = pat.matcher(path.getFileName().toString());
                 return mat.find();
             };
+            default -> result = path -> path.getFileName().toString().equals(search);
         }
-        return p -> p.getFileName().toString().equals(search);
+        return result;
     }
 }

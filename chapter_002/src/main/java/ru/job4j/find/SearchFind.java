@@ -15,8 +15,8 @@ import java.util.function.Predicate;
  * Реализация интерфейса FileVisitor.
  */
 public class SearchFind implements FileVisitor<Path> {
-    private List<Path> listFiles = new ArrayList<>();
-    private Predicate<Path> fileParam;
+    private final List<Path> listFiles = new ArrayList<>();
+    private final Predicate<Path> fileParam;
 
     /**
      * Конструктор принимает параметры поиска
