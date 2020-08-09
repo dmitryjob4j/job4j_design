@@ -29,7 +29,9 @@ public class Find {
         String output = argFind.output();
         String search = argFind.search();
         String paramSearch = argFind.paramSearch();
-        Predicate<Path> pathPredicate = findFiles.findParam(search, paramSearch);
+        FindParam findParam = new FindParam();
+        findParam.init();
+        Predicate<Path> pathPredicate = findParam.access(paramSearch, search);
         List<Path> list = findFiles.find(pathPredicate, Paths.get(derictory));
         saveFind.save(output, list);
     }
